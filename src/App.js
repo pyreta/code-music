@@ -1,40 +1,50 @@
-import React, { Component } from "react"
+import React, { useState } from "react";
 
-class LambdaDemo extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { loading: false, msg: null }
+const App = () => {
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState(null);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleResponse = json => {
+    setLoading(false);
+    setMsg(json.msg);
+    setName('');
+    setEmail('');
   }
+  const handleClick = e => {
+    e.preventDefault();
 
-  handleClick = api => e => {
-    e.preventDefault()
-
-    this.setState({ loading: true })
-    fetch("/.netlify/functions/" + api)
+    setLoading(true);
+    fetch(`/.netlify/functions/add_member?name=${name}&email=${email}`)
       .then(response => response.json())
-      .then(json => this.setState({ loading: false, msg: json.msg }))
-  }
+      .then(handleResponse)
+      .catch(handleResponse);
+  };
 
-  render() {
-    const { loading, msg } = this.state
-
-    return (
+  return (
+    <React.Fragment>
       <p>
-        <button onClick={this.handleClick("hello")}>{loading ? "Loading..." : "Call Lambda"}</button>
-        <button onClick={this.handleClick("async-dadjoke")}>{loading ? "Loading..." : "Call Async Lambda"}</button>
+        <label>
+          What’s your name?
+          <br />
+          <input value={name} onChange={e => setName(e.target.value)} />
+        </label>
+        <label>
+          What’s your email?
+          <br />
+          <input value={email} onChange={e => setEmail(e.target.value)} />
+        </label>
+        <button
+          onClick={handleClick}
+        >
+          {loading ? "Loading..." : "Submit"}
+        </button>
         <br />
         <span>{msg}</span>
       </p>
-    )
-  }
+    </React.Fragment>
+  )
 }
 
-class App extends Component {
-  render() {
-    return (
-      <LambdaDemo />
-    )
-  }
-}
-
-export default App
+export default App;
