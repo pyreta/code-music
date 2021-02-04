@@ -52,7 +52,7 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Route path="/success">Yay!</Route>
+          <Route path="/success" component={() => <div>Yay!!</div>} />
           <Route path="/" component={Input} />
         </Switch>
       </div>
