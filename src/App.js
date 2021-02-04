@@ -1,17 +1,19 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-const App = () => {
+const Input = props => {
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState(null);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleResponse = json => {
     setLoading(false);
     setMsg(json.msg);
-    setName('');
-    setEmail('');
-  }
+    setName("");
+    setEmail("");
+    props.history.push("/success");
+  };
   const handleClick = e => {
     e.preventDefault();
 
@@ -35,16 +37,27 @@ const App = () => {
           <br />
           <input value={email} onChange={e => setEmail(e.target.value)} />
         </label>
-        <button
-          onClick={handleClick}
-        >
+        <button onClick={handleClick}>
           {loading ? "Loading..." : "Submit"}
         </button>
         <br />
         <span>{msg}</span>
       </p>
     </React.Fragment>
-  )
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/success">Yay!</Route>
+          <Route path="/" component={Input} />
+        </Switch>
+      </div>
+    </Router>
+  );
 }
 
 export default App;
