@@ -27,7 +27,7 @@ const BackgroundImage = styled.div`
   opacity: 0.2;
   z-index: -1;
   top: 0;
-  overflow: hidden;
+  overflow-x: hidden;
 `;
 
 const Left = styled.div`
