@@ -26,7 +26,7 @@ const Text1 = styled.div`
   font-family: "Raleway", sans-serif;
   @media (max-width: ${MOBILE_SIZE}px) {
     line-height: 44px;
-    font-size: 41px;
+    font-size: 37px;
   }
 `;
 
@@ -44,7 +44,7 @@ const Text3 = styled(Text1)`
   font-size: 39.7px;
   line-height: 52px;
   @media (max-width: ${MOBILE_SIZE}px) {
-    font-size: 26px;
+    font-size: 23px;
     line-height: 36px;
   }
 `;
@@ -61,7 +61,7 @@ const Text4 = styled(Text1)`
     font-size: 15px;
     line-height: 16px;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 10px;
   }
 `;
 
